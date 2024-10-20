@@ -18,7 +18,7 @@ const Cart: React.FC = () => {
               <li key={item.product.id} className="py-4 flex items-center">
                 <div className="flex-grow">
                   <h3 className="text-lg font-semibold">{item.product.name}</h3>
-                  <p className="text-gray-600">${item.product.price.toFixed(2)} each</p>
+                  <p className="text-gray-600">Tsh. {item.product.price.toFixed(2)} each</p>
                 </div>
                 <div className="flex items-center">
                   <button
@@ -47,7 +47,7 @@ const Cart: React.FC = () => {
             ))}
           </ul>
           <div className="mt-4 text-right">
-            <p className="text-xl font-bold">Total: ${getTotalPrice().toFixed(2)}</p>
+            <p className="text-xl font-bold">Total: Tsh. {getTotalPrice().toFixed(2)}</p>
             <Link
               to="/checkout"
               className="mt-2 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"

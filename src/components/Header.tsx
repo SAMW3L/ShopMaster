@@ -17,7 +17,7 @@ const Header: React.FC = () => {
   return (
     <header className="bg-blue-600 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold">Supermarket System</Link>
+        <Link to="/" className="text-2xl font-bold">AboveAverage</Link>
         <nav>
           <ul className="flex space-x-4 items-center">
             <li>

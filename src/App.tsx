@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
-import ProductSearch from './components/ProductSearch';
+import ProductSearch from './components/ProductSearch.tsx';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import AdminPanel from './components/AdminPanel';

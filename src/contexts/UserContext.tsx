@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface User {
+  password: string;
   id: string;
   username: string;
   role: 'shopkeeper' | 'admin';
@@ -19,7 +20,10 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([
-    { id: '1', username: 'admin', role: 'admin' }
+    {
+      id: '1', username: 'admin', role: 'admin',
+      password: ''
+    }
   ]);
 
   useEffect(() => {
@@ -33,6 +37,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.setItem('users', JSON.stringify(users));
   }, [users]);
 
+  //default credentials for first time login
   const login = async (username: string, password: string): Promise<boolean> => {
     const user = users.find(u => u.username === username);
     if (user && (username === 'admin' && password === 'admin' || password === user.password)) {

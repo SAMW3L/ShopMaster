@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with shopmaster system
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project has been developes to help all Owners of supermarket to sell their products and manage sells
 
 ## Available Scripts
 

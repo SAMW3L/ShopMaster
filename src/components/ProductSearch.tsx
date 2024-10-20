@@ -34,7 +34,7 @@ const ProductSearch: React.FC = () => {
           <div key={product.id} className="bg-white p-4 rounded-md shadow">
             <h3 className="text-lg font-semibold">{product.name}</h3>
             <p className="text-gray-600">{product.category}</p>
-            <p className="text-green-600 font-bold">${product.price.toFixed(2)}</p>
+            <p className="text-green-600 font-bold">Tsh. {product.price.toFixed(2)}</p>
             <p className={`text-sm ${product.stock > 10 ? 'text-green-500' : 'text-red-500'}`}>
               Stock: {product.stock}
             </p>

@@ -18,9 +18,9 @@ interface ProductStore {
 
 export const useProductStore = create<ProductStore>((set) => ({
   products: [
-    { id: '1', name: 'Apple', category: 'Fruit', price: 0.5, stock: 100 },
-    { id: '2', name: 'Banana', category: 'Fruit', price: 0.3, stock: 150 },
-    { id: '3', name: 'Milk', category: 'Dairy', price: 2.5, stock: 50 },
+    { id: '1', name: 'Apple', category: 'Fruit', price: 100, stock: 100 },
+    { id: '2', name: 'Banana', category: 'Fruit', price: 500, stock: 150 },
+    { id: '3', name: 'Milk', category: 'Dairy', price: 1500, stock: 50 },
   ],
   searchProducts: (term) =>
     set((state) => ({

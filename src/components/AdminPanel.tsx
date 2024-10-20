@@ -41,7 +41,7 @@ const AdminPanel: React.FC = () => {
       sale.date.toLocaleDateString(),
       sale.id,
       sale.items.map(item => `${item.product.name} (${item.quantity})`).join(', '),
-      `$${sale.total.toFixed(2)}`
+      `Tsh. ${sale.total.toFixed(2)}`
     ]);
 
     (doc as any).autoTable({
@@ -51,7 +51,7 @@ const AdminPanel: React.FC = () => {
     });
 
     const totalSales = sales.reduce((sum, sale) => sum + sale.total, 0);
-    doc.text(`Total Sales: $${totalSales.toFixed(2)}`, 14, (doc as any).lastAutoTable.finalY + 10);
+    doc.text(`Total Sales: Tsh. ${totalSales.toFixed(2)}`, 14, (doc as any).lastAutoTable.finalY + 10);
 
     // Product frequency analysis
     const productFrequency: { [key: string]: number } = {};
@@ -209,7 +209,7 @@ const AdminPanel: React.FC = () => {
                     onChange={(e) => handleUpdateProduct(product.id, 'price', parseFloat(e.target.value))}
                     className="w-full p-1 border border-gray-300 rounded"
                     min="0"
-                    step="0.01"
+                    step="1"
                   />
                 </td>
                 <td>
@@ -254,11 +254,11 @@ const AdminPanel: React.FC = () => {
                 <td>
                   {sale.items.map((item: SaleItem, index: number) => (
                     <div key={index}>
-                      {item.product.name} (Qty: {item.quantity}, Price: ${item.price.toFixed(2)})
+                      {item.product.name} (Qty: {item.quantity}, Price: Tsh. {item.price.toFixed(2)})
                     </div>
                   ))}
                 </td>
-                <td>${sale.total.toFixed(2)}</td>
+                <td>Tsh. {sale.total.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>

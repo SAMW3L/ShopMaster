@@ -39,10 +39,10 @@ const Checkout: React.FC = () => {
     doc.text('Items:', 10, 30);
     let y = 40;
     cart.forEach((item) => {
-      doc.text(`${item.product.name} x${item.quantity}: $${(item.product.price * item.quantity).toFixed(2)}`, 10, y);
+      doc.text(`${item.product.name} x${item.quantity}: Tsh.${(item.product.price * item.quantity).toFixed(2)}`, 10, y);
       y += 10;
     });
-    doc.text(`Total: $${getTotalPrice().toFixed(2)}`, 10, y + 10);
+    doc.text(`Total: Tsh.${getTotalPrice().toFixed(2)}`, 10, y + 10);
     doc.text(`Payment Method: ${paymentMethod}`, 10, y + 20);
     doc.save('receipt.pdf');
 
@@ -60,12 +60,12 @@ const Checkout: React.FC = () => {
           {cart.map((item) => (
             <li key={item.product.id} className="py-2">
               <span>{item.product.name} x{item.quantity}</span>
-              <span className="float-right">${(item.product.price * item.quantity).toFixed(2)}</span>
+              <span className="float-right">Tsh.{(item.product.price * item.quantity).toFixed(2)}</span>
             </li>
           ))}
         </ul>
         <div className="mt-2 text-right">
-          <p className="text-xl font-bold">Total: ${getTotalPrice().toFixed(2)}</p>
+          <p className="text-xl font-bold">Total: Tsh.{getTotalPrice().toFixed(2)}</p>
         </div>
       </div>
       <div className="mb-4">
