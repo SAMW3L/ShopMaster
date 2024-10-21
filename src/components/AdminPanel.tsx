@@ -16,6 +16,14 @@ const AdminPanel: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [reportType, setReportType] = useState('daily');
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState({
+    addUser: false,
+    addProduct: false,
+    manageProduct: false,
+    salesTransaction: false,
+    generateReport: false,
+  });
+
   const handleAddProduct = (e: React.FormEvent) => {
     e.preventDefault();
     addProduct(newProduct);
@@ -104,131 +112,147 @@ const AdminPanel: React.FC = () => {
     sale.items.some(item => item.product.name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
+  const toggleDropdown = (section: string) => {
+    setIsDropdownOpen((prevState) => ({
+      ...prevState,
+      [section]: !prevState[section],
+    }));
+  };
+
   return (
     <div className="space-y-8">
-      {/* Add New User form */}
+      {/* Dropdown Menu for Add New User */}
       <div className="bg-white p-4 rounded-md shadow">
-        <h2 className="text-2xl font-bold mb-4">Add New User</h2>
-        <form onSubmit={handleAddUser} className="space-y-4">
-          <input
-            type="text"
-            value={newUser.username}
-            onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
-            placeholder="Username"
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-          <input
-            type="password"
-            value={newUser.password}
-            onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
-            placeholder="Password"
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-          <select
-            value={newUser.role}
-            onChange={(e) => setNewUser({ ...newUser, role: e.target.value as 'shopkeeper' | 'admin' })}
-            className="w-full p-2 border border-gray-300 rounded"
-          >
-            <option value="shopkeeper">Shopkeeper</option>
-            <option value="admin">Admin</option>
-          </select>
-          <button type="submit" className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Add User
-          </button>
-        </form>
+        <button onClick={() => toggleDropdown('addUser')} className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Add New User
+        </button>
+        {isDropdownOpen.addUser && (
+          <div className="mt-4">
+            <form onSubmit={handleAddUser} className="space-y-4">
+              <input
+                type="text"
+                value={newUser.username}
+                onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
+                placeholder="Username"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+              <input
+                type="password"
+                value={newUser.password}
+                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                placeholder="Password"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+              <select
+                value={newUser.role}
+                onChange={(e) => setNewUser({ ...newUser, role: e.target.value as 'shopkeeper' | 'admin' })}
+                className="w-full p-2 border border-gray-300 rounded"
+              >
+                <option value="shopkeeper">Shopkeeper</option>
+                <option value="admin">Admin</option>
+              </select>
+              <button type="submit" className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Add User
+              </button>
+            </form>
+          </div>
+        )}
       </div>
 
-      {/* Add New Product form */}
+      {/* Dropdown Menu for Add New Product */}
       <div className="bg-white p-4 rounded-md shadow">
-        <h2 className="text-2xl font-bold mb-4">Add New Product</h2>
-        <form onSubmit={handleAddProduct} className="space-y-4">
-          <input
-            type="text"
-            value={newProduct.name}
-            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-            placeholder="Product Name"
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-          <input
-            type="text"
-            value={newProduct.category}
-            onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
-            placeholder="Category"
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-          <input
-            type="number"
-            value={newProduct.price}
-            onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
-            placeholder="Price"
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-            min="0"
-            step="0.01"
-          />
-          <input
-            type="number"
-            value={newProduct.stock}
-            onChange={(e) => setNewProduct({ ...newProduct, stock: parseInt(e.target.value) })}
-            placeholder="Stock"
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-            min="0"
-          />
-          <button type="submit" className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Add Product
-          </button>
-        </form>
+        <button onClick={() => toggleDropdown('addProduct')} className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Add New Product
+        </button>
+        {isDropdownOpen.addProduct && (
+          <div className="mt-4">
+            <form onSubmit={handleAddProduct} className="space-y-4">
+              <input
+                type="text"
+                value={newProduct.name}
+                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                placeholder="Product Name"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+              <input
+                type="text"
+                value={newProduct.category}
+                onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                placeholder="Category"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+              <input
+                type="number"
+                value={newProduct.price}
+                onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
+                placeholder="Price"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+                min="0"
+                step="0.01"
+              />
+              <input
+                type="number"
+                value={newProduct.stock}
+                onChange={(e) => setNewProduct({ ...newProduct, stock: parseInt(e.target.value) })}
+                placeholder="Stock"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+                min="0"
+              />
+              <button type="submit" className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                Add Product
+              </button>
+            </form>
+          </div>
+        )}
       </div>
 
-      {/* Manage Products table */}
+      {/* Dropdown Menu for Manage Products */}
       <div className="bg-white p-4 rounded-md shadow">
-        <h2 className="text-2xl font-bold mb-4">Manage Products</h2>
-        <table className="w-full">
-          <thead>
-            <tr>
-              <th className="text-left">Name</th>
-              <th className="text-left">Category</th>
-              <th className="text-left">Price</th>
-              <th className="text-left">Stock</th>
-            </tr>
-          </thead>
-          <tbody>
+        <button onClick={() => toggleDropdown('manageProduct')} className="w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+          Manage Products
+        </button>
+        {isDropdownOpen.manageProduct && (
+          <div className="mt-4 space-y-4">
             {products.map((product) => (
-              <tr key={product.id}>
-                <td>{product.name}</td>
-                <td>{product.category}</td>
-                <td>
-                  <input
-                    type="number"
-                    value={product.price}
-                    onChange={(e) => handleUpdateProduct(product.id, 'price', parseFloat(e.target.value))}
-                    className="w-full p-1 border border-gray-300 rounded"
-                    min="0"
-                    step="1"
-                  />
-                </td>
-                <td>
+              <div key={product.id} className="flex justify-between items-center">
+                <span>{product.name}</span>
+                <div className="flex space-x-2">
                   <input
                     type="number"
                     value={product.stock}
                     onChange={(e) => handleUpdateProduct(product.id, 'stock', parseInt(e.target.value))}
-                    className="w-full p-1 border border-gray-300 rounded"
-                    min="0"
+                    placeholder="Update Stock"
+                    className="p-2 border border-gray-300 rounded"
                   />
-                </td>
-              </tr>
+                  <input
+                    type="number"
+                    value={product.price}
+                    onChange={(e) => handleUpdateProduct(product.id, 'price', parseFloat(e.target.value))}
+                    placeholder="Update Price"
+                    className="p-2 border border-gray-300 rounded"
+                  />
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        )}
       </div>
 
-      {/* Sales Transactions table */}
+      {/* Dropdown Menu for Sales Transactions */}
       <div className="bg-white p-4 rounded-md shadow">
+        <button onClick={() => toggleDropdown('salesTransaction')} className="w-full bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+          Sales Transactions
+        </button>
+        {isDropdownOpen.salesTransaction && (
+          <div className="mt-4">
+            {/* Add any additional management for sales transactions here */}
+            <div className="bg-white p-4 rounded-md shadow">
         <h2 className="text-2xl font-bold mb-4">Sales Transactions</h2>
         <input
           type="text"
@@ -265,35 +289,41 @@ const AdminPanel: React.FC = () => {
         </table>
       </div>
 
-      {/* Generate Sales Report section */}
+          </div>
+        )}
+      </div>
+
+      {/* Dropdown Menu for Generate Report */}
       <div className="bg-white p-4 rounded-md shadow">
-        <h2 className="text-2xl font-bold mb-4">Generate Sales Report</h2>
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1">Report Type</label>
-            <select
-              value={reportType}
-              onChange={(e) => setReportType(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            >
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="custom">Custom Range</option>
-            </select>
-          </div>
-          <div>
-            <label className="block mb-1">Start Date</label>
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            />
-          </div>
-          {reportType === 'custom' && (
+        <button onClick={() => toggleDropdown('generateReport')} className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+          Generate Report
+        </button>
+        {isDropdownOpen.generateReport && (
+          <div className="mt-4 space-y-4">
             <div>
-              <label className="block mb-1">End Date</label>
+              <label className="block">Report Type</label>
+              <select
+                value={reportType}
+                onChange={(e) => setReportType(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              >
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div>
+              <label className="block">Start Date</label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div>
+              <label className="block">End Date (for custom report)</label>
               <input
                 type="date"
                 value={endDate}
@@ -301,15 +331,14 @@ const AdminPanel: React.FC = () => {
                 className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
-          )}
-          <button
-            onClick={handleGenerateReport}
-            className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            disabled={!startDate || (reportType === 'custom' && !endDate)}
-          >
-            Generate Report
-          </button>
-        </div>
+            <button
+              onClick={handleGenerateReport}
+              className=" bg-green-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+              Generate Report
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
