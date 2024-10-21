@@ -34,7 +34,7 @@ const Checkout: React.FC = () => {
 
     // Generate receipt
     const doc = new jsPDF();
-    doc.text('Receipt', 10, 10);
+    doc.text('Receipt', 30, 10);
     doc.text(`Date: ${new Date().toLocaleString()}`, 10, 20);
     doc.text('Items:', 10, 30);
     let y = 40;
@@ -44,6 +44,7 @@ const Checkout: React.FC = () => {
     });
     doc.text(`Total: Tsh.${getTotalPrice().toFixed(2)}`, 10, y + 10);
     doc.text(`Payment Method: ${paymentMethod}`, 10, y + 20);
+    doc.text('Powerd by Samuel',10, y + 200);
     doc.save('receipt.pdf');
 
     // Clear cart and navigate to home
@@ -76,9 +77,9 @@ const Checkout: React.FC = () => {
           className="w-full p-2 border border-gray-300 rounded"
         >
           <option value="">Select payment method</option>
-          <option value="cash">Cash</option>
-          <option value="credit">Credit Card</option>
-          <option value="debit">Debit Card</option>
+          <option value="Cash">Cash</option>
+          <option value="Credit">Credit Card</option>
+          <option value="Lipa Simu">Mobile Payment (M-pesa,TIGO Pesa,HaloPesa,AirtelMoney, T-Pesa)</option>
         </select>
       </div>
       <button

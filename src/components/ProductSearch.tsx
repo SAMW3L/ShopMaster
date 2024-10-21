@@ -7,10 +7,29 @@ const ProductSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { products, searchProducts } = useProductStore();
   const { addToCart } = useCartStore();
+  const [popupMessage, setPopupMessage] = useState<string | null>(null); // State for popup message
+  const [popupType, setPopupType] = useState<'success' | 'error' | null>(null); // To differentiate between success and error messages
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     searchProducts(searchTerm);
+  };
+
+  const handleAddToCart = (product: any) => {
+    if (product.stock > 0) {
+      addToCart(product); // Adding the product to the cart
+      setPopupMessage(`Added "${product.name}" to cart successfully!`);
+      setPopupType('success');
+    } else {
+      setPopupMessage(`Sorry, "${product.name}" is out of stock.`);
+      setPopupType('error');
+    }
+
+    // Hide the popup after 2 seconds
+    setTimeout(() => {
+      setPopupMessage(null);
+      setPopupType(null);
+    }, 2000);
   };
 
   return (
@@ -29,6 +48,18 @@ const ProductSearch: React.FC = () => {
           </button>
         </div>
       </form>
+      
+      {/* Popup message */}
+      {popupMessage && (
+        <div
+          className={`fixed top-4 right-4 p-4 rounded-md shadow-lg transition-all ${
+            popupType === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+          }`}
+        >
+          {popupMessage}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((product) => (
           <div key={product.id} className="bg-white p-4 rounded-md shadow">
@@ -39,7 +70,7 @@ const ProductSearch: React.FC = () => {
               Stock: {product.stock}
             </p>
             <button
-              onClick={() => addToCart(product)}
+              onClick={() => handleAddToCart(product)}
               className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               disabled={product.stock === 0}
             >

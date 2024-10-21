@@ -23,7 +23,7 @@ const Cart: React.FC = () => {
                 <div className="flex items-center">
                   <button
                     onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                    className="px-2 py-1 bg-gray-200 rounded-l"
+                    className="px-5 py-1 bg-gray-200 rounded-l"
                     disabled={item.quantity === 1}
                   >
                     -
@@ -31,7 +31,7 @@ const Cart: React.FC = () => {
                   <span className="px-4 py-1 bg-gray-100">{item.quantity}</span>
                   <button
                     onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                    className="px-2 py-1 bg-gray-200 rounded-r"
+                    className="px-5 py-1 bg-gray-200 rounded-r"
                     disabled={item.quantity === item.product.stock}
                   >
                     +
@@ -41,7 +41,7 @@ const Cart: React.FC = () => {
                   onClick={() => removeFromCart(item.product.id)}
                   className="ml-4 text-red-500 hover:text-red-700"
                 >
-                  <Trash2 size={20} />
+                  <Trash2 size={30} />
                 </button>
               </li>
             ))}
@@ -52,7 +52,7 @@ const Cart: React.FC = () => {
               to="/checkout"
               className="mt-2 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
             >
-              Proceed to Checkout
+              Make Payment
             </Link>
           </div>
         </>
